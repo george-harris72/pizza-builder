@@ -1,0 +1,341 @@
+<!doctype html>
+<!--
+  Copyright 2026 Anthropic PBC
+  SPDX-License-Identifier: Apache-2.0
+-->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build your own pizza</title>
+<meta name="description" content="Drag, drop and bake your perfect pizza in under a minute.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="root" id="root">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="sym-pepperoni" viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="#C7362B"></circle><circle cx="15" cy="16" r="1.8" fill="#8E1B15"></circle><circle cx="24" cy="14" r="1.4" fill="#8E1B15"></circle><circle cx="25" cy="24" r="2" fill="#8E1B15"></circle><circle cx="16" cy="26" r="1.5" fill="#8E1B15"></circle><circle cx="20" cy="20" r="1.2" fill="#8E1B15"></circle><ellipse cx="15" cy="12.5" rx="4.5" ry="2" fill="#fff" opacity="0.3"></ellipse></symbol>
+<symbol id="sym-ham" viewBox="0 0 40 40"><path d="M8 12 Q20 4 32 11 Q37 22 30 31 Q18 37 9 29 Q3 20 8 12Z" fill="#E98F8C"></path><path d="M11 14 Q20 8 29 13 Q33 21 28 28 Q19 33 12 27 Q7 20 11 14Z" fill="#F4ABA7"></path><path d="M14 16 Q20 13 25 16" fill="none" stroke="#FAD0CC" stroke-width="2" stroke-linecap="round"></path></symbol>
+<symbol id="sym-beef" viewBox="0 0 40 40"><circle cx="15" cy="18" r="7" fill="#5E3220"></circle><circle cx="24" cy="16" r="6" fill="#74402A"></circle><circle cx="21" cy="25" r="7" fill="#673723"></circle><circle cx="14" cy="16" r="1.6" fill="#B5462E"></circle><circle cx="23" cy="24" r="1.4" fill="#B5462E"></circle></symbol>
+<symbol id="sym-chicken" viewBox="0 0 40 40"><path d="M7 20 Q9 10 20 9 Q32 9 33 19 Q33 30 21 31 Q9 31 7 20Z" fill="#E9C98E"></path><path d="M10 20 Q12 13 20 12 Q29 12 30 19 Q30 27 21 28 Q12 28 10 20Z" fill="#F6E1B8"></path><path d="M13 17 L24 15 M12 22 L27 20 M15 26 L25 25" stroke="#D9AE6C" stroke-width="1.6" stroke-linecap="round"></path></symbol>
+<symbol id="sym-bacon" viewBox="0 0 40 40"><path d="M4 14 Q12 8 20 14 T36 14 L36 26 Q28 20 20 26 T4 26Z" fill="#B8402F"></path><path d="M4 19 Q12 13 20 19 T36 19 L36 22 Q28 16 20 22 T4 22Z" fill="#F4C9AE"></path></symbol>
+<symbol id="sym-mushroom" viewBox="0 0 40 40"><path d="M6 20 Q6 7 20 7 Q34 7 34 20 Q30 22 25 21 L25 32 Q20 35 15 32 L15 21 Q10 22 6 20Z" fill="#E7D3AE" stroke="#A88A5E" stroke-width="1.5"></path><path d="M10 18 L15 20 M14 15 L17 20 M20 13 L20 20 M26 15 L23 20 M30 18 L25 20" stroke="#B89C70" stroke-width="1.2" stroke-linecap="round"></path></symbol>
+<symbol id="sym-onion" viewBox="0 0 40 40"><path d="M7 26 A14 14 0 0 1 33 26" fill="none" stroke="#7E2F6B" stroke-width="4.5" stroke-linecap="round"></path><path d="M11 26 A10 10 0 0 1 29 26" fill="none" stroke="#C88ABC" stroke-width="2.5" stroke-linecap="round"></path></symbol>
+<symbol id="sym-pepper" viewBox="0 0 40 40"><path d="M6 28 Q12 10 32 12" fill="none" stroke="#2F7A2E" stroke-width="6" stroke-linecap="round"></path><path d="M8 26 Q13 13 30 14" fill="none" stroke="#6DB04F" stroke-width="2" stroke-linecap="round"></path></symbol>
+<symbol id="sym-olive" viewBox="0 0 40 40"><circle cx="20" cy="20" r="11" fill="#262321"></circle><circle cx="20" cy="20" r="4.5" fill="#6B4A2E"></circle><ellipse cx="15" cy="14" rx="3.5" ry="1.8" fill="#fff" opacity="0.3"></ellipse></symbol>
+<symbol id="sym-corn" viewBox="0 0 40 40"><path d="M12 22 Q12 10 20 9 Q28 10 28 22 Q28 31 20 31 Q12 31 12 22Z" fill="#F2BE2E"></path><ellipse cx="17" cy="15" rx="3" ry="4" fill="#FFE27A"></ellipse></symbol>
+<symbol id="sym-jalapeno" viewBox="0 0 40 40"><circle cx="20" cy="20" r="13" fill="#3F8A2D"></circle><circle cx="20" cy="20" r="9" fill="#C9E59E"></circle><circle cx="20" cy="20" r="4" fill="#EEF6D6"></circle><circle cx="17" cy="17" r="1.3" fill="#F3EBC8"></circle><circle cx="23" cy="18" r="1.3" fill="#F3EBC8"></circle><circle cx="20" cy="24" r="1.3" fill="#F3EBC8"></circle></symbol>
+<symbol id="sym-tomato" viewBox="0 0 40 40"><circle cx="20" cy="20" r="13" fill="#C92E22"></circle><circle cx="20" cy="20" r="10" fill="#EE5A48"></circle><path d="M20 10 L20 30 M11 20 L29 20" stroke="#C92E22" stroke-width="1.5"></path><circle cx="15" cy="15" r="1.6" fill="#F8D66B"></circle><circle cx="25" cy="15" r="1.6" fill="#F8D66B"></circle><circle cx="15" cy="25" r="1.6" fill="#F8D66B"></circle><circle cx="25" cy="25" r="1.6" fill="#F8D66B"></circle></symbol>
+<symbol id="sym-basil" viewBox="0 0 40 40"><path d="M6 30 Q8 10 32 8 Q32 30 6 30Z" fill="#2F7D4F"></path><path d="M8 28 Q18 20 29 11" fill="none" stroke="#7CC08F" stroke-width="1.6" stroke-linecap="round"></path></symbol>
+<symbol id="sym-pineapple" viewBox="0 0 40 40"><path d="M8 30 L20 6 L32 30 Q20 35 8 30Z" fill="#F7D35A" stroke="#E0AE2E" stroke-width="1.5" stroke-linejoin="round"></path><path d="M14 26 L20 14 L26 26" fill="none" stroke="#FBE79A" stroke-width="1.6"></path></symbol>
+<symbol id="sym-goat" viewBox="0 0 40 40"><path d="M9 20 Q8 10 19 9 Q31 9 31 19 Q33 30 20 31 Q8 31 9 20Z" fill="#FBF8EF" stroke="#DCD1B8" stroke-width="1.5"></path><circle cx="16" cy="17" r="1.4" fill="#E2D8C0"></circle><circle cx="24" cy="23" r="1.2" fill="#E2D8C0"></circle></symbol>
+<symbol id="sym-feta" viewBox="0 0 40 40"><rect x="9" y="9" width="22" height="22" rx="4" fill="#F7F3E6" stroke="#D8CDB2" stroke-width="1.5"></rect><circle cx="23" cy="23" r="1.3" fill="#E2D8C0"></circle></symbol>
+<symbol id="sym-rocket" viewBox="0 0 40 40"><path d="M10 22 Q14 12 22 14 Q18 22 10 22Z" fill="#4F8F3A"></path><path d="M18 26 Q24 16 31 20 Q26 28 18 26Z" fill="#3D7A2E"></path><path d="M14 30 Q16 22 24 24 Q22 31 14 30Z" fill="#5FA247"></path><path d="M20 16 Q27 8 32 12 Q28 18 20 16Z" fill="#477F33"></path><path d="M8 16 Q12 8 18 10 Q16 17 8 16Z" fill="#5A9A42"></path></symbol>
+<symbol id="sym-chilli" viewBox="0 0 40 40"><path d="M5 12 Q12 6 16 13 T26 14 T35 12 M6 22 Q13 16 18 23 T29 23 T35 20 M7 30 Q14 25 20 30 T33 29" fill="none" stroke="#E2572B" stroke-width="1.6" stroke-linecap="round" opacity="0.9"></path></symbol>
+<symbol id="sym-scale" viewBox="0 0 40 40"><path d="M20 8 L20 32 M12 32 L28 32 M8 14 L32 14" stroke="#a8180d" stroke-width="2.4" stroke-linecap="round"></path><path d="M8 14 L4 24 L12 24 Z M32 14 L28 24 L36 24 Z" fill="#ffca28"></path></symbol>
+<symbol id="sym-brush" viewBox="0 0 40 40"><path d="M28 6 L34 12 L18 28 L12 22 Z" fill="#ffca28"></path><path d="M12 22 Q4 24 6 34 Q16 36 18 28 Z" fill="#d32618"></path></symbol>
+<symbol id="sym-pizza" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#E3A65A"></circle><circle cx="20" cy="20" r="14" fill="#C2362A"></circle><circle cx="14" cy="15" r="4" fill="#FFF0C2"></circle><circle cx="25" cy="24" r="4.5" fill="#FFF0C2"></circle><circle cx="22" cy="13" r="3" fill="#FFF0C2"></circle><circle cx="13" cy="25" r="3.5" fill="#FFF0C2"></circle><circle cx="20" cy="20" r="2.6" fill="#8E1B15"></circle><circle cx="27" cy="16" r="2.4" fill="#8E1B15"></circle><circle cx="16" cy="29" r="2.4" fill="#8E1B15"></circle><path d="M9 20 Q11 17 13 19" fill="#2F7D4F"></path></symbol>
+<symbol id="sym-slice" viewBox="0 0 40 40"><path d="M20 4 L35 33 Q20 39 5 33 Z" fill="#E3A65A"></path><path d="M20 10 L31 30 Q20 34 9 30 Z" fill="#FFF0C2"></path><circle cx="19" cy="20" r="2.6" fill="#C7362B"></circle><circle cx="23" cy="27" r="2.4" fill="#C7362B"></circle><circle cx="15" cy="27" r="2.2" fill="#C7362B"></circle></symbol>
+</defs>
+</svg>
+
+<div class="ghost" id="ghost" aria-hidden="true"><svg viewBox="0 0 40 40"><use id="ghost-use" href="#sym-pepperoni"></use></svg></div>
+<div id="fx" aria-hidden="true"></div>
+<div class="sr" aria-live="polite" role="status" id="live"></div>
+<div class="toasts" id="toasts" aria-hidden="true"></div>
+
+<header class="hdr">
+<div class="wrap hdr-in">
+<a class="logo" href="#top" data-brand>PIZZANOW</a>
+<nav class="nav t-nav" aria-label="Main"><a href="#build">Build</a><a href="#how">How it works</a><a href="#favourites">Menu favourites</a><a href="#contact">Contact</a></nav>
+<button class="basket-btn t-nav" type="button" id="basket-btn" aria-label="Basket: 0 items, £0.00"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.5 11h-11z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg><span class="basket-count" id="basket-count">0</span><span id="basket-total">£0.00</span></button>
+</div>
+</header>
+
+<main id="top">
+<section class="panel-red hero on-red" aria-labelledby="hero-h">
+<div class="wm" aria-hidden="true">
+<div class="wm-line"><div class="wm-row" data-x="0.35"></div></div>
+<div class="wm-line"><div class="wm-row" data-x="-0.3" data-offset="1"></div></div>
+<div class="wm-line"><div class="wm-row" data-x="0.25"></div></div>
+<div class="wm-line"><div class="wm-row" data-x="-0.4" data-offset="1"></div></div>
+<div class="wm-line"><div class="wm-row" data-x="0.3"></div></div>
+</div>
+<div class="px hide-m" style="left: 4%; top: 8%; width: 70px; height: 70px; z-index: 1"><div class="px-in" data-speed="0.4" data-rot="0.6"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-basil"></use></svg></div></div>
+<div class="px hide-m" style="left: 42%; top: 6%; width: 56px; height: 56px; z-index: 1"><div class="px-in" data-speed="0.55" data-rot="-0.8"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-pepperoni"></use></svg></div></div>
+<div class="px" style="left: 47%; top: 84%; width: 52px; height: 52px; z-index: 1"><div class="px-in" data-speed="0.6" data-rot="1"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-olive"></use></svg></div></div>
+<div class="px hide-m" style="left: 92%; top: 10%; width: 76px; height: 76px; z-index: 3"><div class="px-in" data-speed="0.3" data-rot="-0.5"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-pepper"></use></svg></div></div>
+<div class="px" style="left: 90%; top: 80%; width: 64px; height: 64px; z-index: 3"><div class="px-in" data-speed="-0.4" data-rot="0.7"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-tomato"></use></svg></div></div>
+<div class="px hide-m" style="left: 56%; top: 14%; width: 50px; height: 50px; z-index: 3"><div class="px-in" data-speed="0.7" data-rot="-1.2"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-mushroom"></use></svg></div></div>
+
+<div class="hero-inner">
+<div class="cream-card hero-card">
+<p class="t-label c-red7">Hand-stretched · Stone-baked · Built by you</p>
+<h1 class="c-red" id="hero-h">Your pizza.<br>Your rules.</h1>
+<p>Drag, drop and bake your perfect pizza in under a minute. We'll handle the hot bit.</p>
+<div class="hero-ctas">
+<span class="cta-flourish"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 20 L16 24 M12 8 L19 18 M26 6 L25 16" fill="none" stroke="#231f0b" stroke-width="2.5" stroke-linecap="round"></path></svg><button class="btn btn-gold btn-lg" type="button" data-act="start">Start building</button></span>
+<button class="btn btn-line btn-lg" type="button" data-act="surprise">Surprise me</button>
+</div>
+</div>
+<div class="hero-art">
+<div class="px" style="inset: 0; z-index: 2"><div class="px-in" data-speed="0.08" data-rot="0.25"><div class="hero-pizza"><img src="assets/img/hero-pizza.webp" alt="A wood-fired pepperoni pizza"></div></div></div>
+<div class="px" style="left: -4%; top: 72%; width: 160px; height: 40px; z-index: 3"><div class="px-in" data-speed="0.25"><span class="tag" style="background: #ffca28; color: #a8180d; font-size: 18px; min-height: 44px; transform: rotate(-6deg)" id="hero-count-tag">18 toppings</span></div></div>
+<div class="px" style="left: 78%; top: 18%; width: 140px; height: 40px; z-index: 3"><div class="px-in" data-speed="-0.2"><span class="tag" style="background: #f3e8cc; color: #a8180d; font-size: 18px; min-height: 44px; transform: rotate(6deg)" id="hero-from-tag">From £8</span></div></div>
+</div>
+</div>
+</section>
+
+<section class="panel-red on-red sec" id="how" aria-labelledby="how-h">
+<div class="px hide-m" style="left: 88%; top: 6%; width: 120px; height: 120px"><div class="px-in" data-speed="0.3" data-rot="0.5"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-slice"></use></svg></div></div>
+<div class="px hide-m" style="left: 2%; top: 64%; width: 90px; height: 90px"><div class="px-in" data-speed="-0.3" data-rot="0.4"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-pizza"></use></svg></div></div>
+<div class="px hide-m" style="left: 50%; top: 6%; width: 50px; height: 50px"><div class="px-in" data-speed="0.55" data-rot="-0.8"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-corn"></use></svg></div></div>
+<div class="wrap">
+<div class="feature">
+<div class="sec-head">
+<p class="t-label c-white">How it works</p>
+<h2 class="t-headline c-gold" id="how-h">Three steps to dinner.</h2>
+<p class="lead c-cream">No menus to squint at. You make it, we bake it.</p>
+</div>
+<div class="cut-wrap"><div class="px-in" data-speed="0.08"><figure class="cut bg-cream"><img src="assets/img/cutout-thumbs-up.webp" alt="A man in sunglasses biting a cheesy slice and giving a thumbs up"></figure></div></div>
+</div>
+<ol class="steps">
+<li class="cream-card step"><span class="step-n" aria-hidden="true">01</span><h3 class="t-title">Pick your base</h3><p>Choose a size, crust, sauce and cheese. Watch the dough change as you go.</p></li>
+<li class="cream-card step"><span class="step-n" aria-hidden="true">02</span><h3 class="t-title">Drag on your toppings</h3><p>Pick up anything from the tray and drop it on. Or just tap a topping to add it.</p></li>
+<li class="cream-card step"><span class="step-n" aria-hidden="true">03</span><h3 class="t-title">Confirm and we'll bake it</h3><p>Review your order, choose delivery or collection, and we'll fire up the oven.</p></li>
+</ol>
+</div>
+</section>
+
+<section class="sec" id="build" aria-labelledby="build-h">
+<div class="px hide-m" style="left: 1%; top: 3%; width: 70px; height: 70px"><div class="px-in" data-speed="0.4" data-rot="0.6"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-pepperoni"></use></svg></div></div>
+<div class="px hide-m" style="left: 54%; top: 4%; width: 60px; height: 60px"><div class="px-in" data-speed="0.5" data-rot="-0.5"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-basil"></use></svg></div></div>
+<div class="wrap">
+<div class="feature">
+<div class="sec-head">
+<p class="t-label c-red7">The pizza builder</p>
+<h2 class="t-headline c-red" id="build-h">Build it your way.</h2>
+<p class="lead">Pick a base, then get your hands dirty. Well, not literally.</p>
+</div>
+<div class="cut-wrap"><div class="px-in" data-speed="0.08"><figure class="cut bg-red"><img src="assets/img/cutout-beanie.webp" alt="A woman in a red beanie taking a big bite of pepperoni pizza"></figure></div></div>
+</div>
+<div class="builder show-tray" id="builder">
+
+<aside class="white-card bpanel panel-base" aria-labelledby="base-h" id="panel-base">
+<h3 class="t-title" id="base-h">Your base</h3>
+<div id="base-groups"></div>
+</aside>
+
+<div class="stage">
+<div class="board on-red" id="board">
+<div class="board-tools">
+<button type="button" class="icon-btn" id="sound-btn" data-act="sound" aria-pressed="false" aria-label="Sound off" title="Sound off">
+<svg id="sound-on-icon" hidden width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"></path><path d="M16 9a4 4 0 0 1 0 6"></path><path d="M18.5 6.5a8 8 0 0 1 0 11"></path></svg>
+<svg id="sound-off-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"></path><path d="M17 10l4 4M21 10l-4 4"></path></svg>
+</button>
+</div>
+<div class="pz-wrap">
+<svg class="pz-svg" id="pz-svg" viewBox="0 0 400 400" role="img" aria-label="Your pizza">
+<g id="pizza-art">
+<g id="pz-scale" style="transform: scale(0.91); transform-origin: 200px 200px; transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1)">
+<circle id="pz-crust" cx="200" cy="200" r="188" fill="#E3A65A"></circle>
+<circle id="pz-inner" cx="200" cy="200" r="166" fill="#D9944A"></circle>
+<circle id="pz-stuffed" cx="200" cy="200" r="170" fill="none" stroke="#FFE3A3" stroke-width="5" stroke-dasharray="14 10" stroke-linecap="round" display="none"></circle>
+<circle id="pz-sauce" cx="200" cy="200" r="156" fill="#B8281C"></circle>
+<g id="pz-cheese"></g>
+<circle id="pz-dz" class="dz" cx="200" cy="200" r="152" display="none"></circle>
+<g id="pz-pieces"></g>
+</g>
+</g>
+</svg>
+<div class="board-hint t-label" id="board-hint">Pick a size to get started</div>
+</div>
+</div>
+
+<div class="namebar">
+<label class="sr" for="pz-name">Pizza name</label>
+<input id="pz-name" type="text" value="The Blank Canvas" maxlength="40">
+<button type="button" class="icon-btn" data-act="regen-name" aria-label="Generate a new pizza name" title="New name"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"></path><path d="M21 3v5h-5"></path></svg></button>
+</div>
+
+<div class="white-card meter">
+<div class="meter-top"><span class="flabel">Pizza-o-meter</span><b id="meter-label">Plain Jane</b></div>
+<div class="meter-track" id="meter-track" role="meter" aria-label="Pizza-o-meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0 out of 100, Plain Jane"><div class="meter-fill" id="meter-fill" style="width: 0%"></div></div>
+<ul class="badges" id="badges" aria-label="Achievements"></ul>
+</div>
+
+<div class="white-card orderbar">
+<div><div class="price" id="price">£0.00</div><div class="t-caption" id="topping-meta">0 of 8 toppings</div></div>
+<div class="sp"></div>
+<button type="button" class="btn btn-line btn-sm" id="undo-btn" data-act="undo" disabled>Undo</button>
+<button type="button" class="btn btn-line btn-sm" id="clear-btn" data-act="ask-clear" disabled>Clear</button>
+<button type="button" class="btn btn-gold btn-sm" data-act="review">I'm done — review order</button>
+</div>
+</div>
+
+<div class="tabs" role="tablist" aria-label="Builder panels">
+<button type="button" class="tab t-nav" role="tab" id="tab-tray" aria-selected="true" aria-controls="panel-tray" data-act="tab" data-val="tray">Toppings</button>
+<button type="button" class="tab t-nav" role="tab" id="tab-base" aria-selected="false" aria-controls="panel-base" data-act="tab" data-val="base">Base</button>
+</div>
+
+<aside class="white-card bpanel panel-tray" aria-labelledby="tray-h" id="panel-tray">
+<h3 class="t-title" id="tray-h">Toppings</h3>
+<div class="chips" role="group" aria-label="Filter toppings" id="chips"></div>
+<p class="tray-note" id="tray-note">Choose your base first — pick a size.</p>
+<div class="tray-grid" id="tray-grid"></div>
+<div class="mine">
+<h4>Your toppings (<span id="mine-count">0</span>/8)</h4>
+<p class="empty" id="mine-empty">Nothing yet. Drag something on, or tap a topping.</p>
+<ul id="mine-list"></ul>
+</div>
+</aside>
+
+</div>
+</div>
+</section>
+
+<section class="panel-red on-red sec" id="favourites" aria-labelledby="fav-h">
+<div class="px hide-m" style="left: 60%; top: 5%; width: 56px; height: 56px"><div class="px-in" data-speed="0.6" data-rot="0.9"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-pineapple"></use></svg></div></div>
+<div class="px hide-m" style="left: 3%; top: 8%; width: 100px; height: 100px"><div class="px-in" data-speed="0.35" data-rot="-0.6"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-pizza"></use></svg></div></div>
+<div class="wrap">
+<div class="feature">
+<div class="sec-head">
+<p class="t-label c-white">Menu favourites</p>
+<h2 class="t-headline c-gold" id="fav-h">Where tradition meets your taste.</h2>
+<p class="lead c-cream">Start from a classic. Load one into the builder, then make it yours.</p>
+</div>
+<div class="cut-wrap"><div class="px-in" data-speed="0.08"><figure class="cut bg-cream"><img src="assets/img/cutout-laughing.webp" alt="A man in sunglasses and a mustard jacket laughing as he eats a slice"></figure></div></div>
+</div>
+<div class="favs" id="favs"></div>
+</div>
+</section>
+
+<section class="sec" id="share" aria-labelledby="share-h">
+<div class="px hide-m" style="left: 3%; top: 6%; width: 60px; height: 60px"><div class="px-in" data-speed="0.45" data-rot="0.8"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-pepperoni"></use></svg></div></div>
+<div class="px hide-m" style="left: 92%; top: 64%; width: 70px; height: 70px"><div class="px-in" data-speed="-0.3" data-rot="-0.6"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-basil"></use></svg></div></div>
+<div class="wrap share">
+<div class="cut-wrap" style="position: relative"><div class="px-in" data-speed="0.06"><figure class="cut bg-white"><img src="assets/img/cutout-friends.webp" alt="Five friends laughing and sharing a box of pepperoni pizza"></figure></div>
+<div class="share-tag"><div class="px-in" data-speed="-0.2"><span class="tag" style="background: #ffca28; color: #a8180d; font-size: 18px; min-height: 44px; transform: rotate(6deg)" id="free-del-tag">Free delivery over £25</span></div></div>
+</div>
+<div class="share-copy">
+<p class="t-label c-red7">Pizza night, sorted</p>
+<h2 class="t-headline c-red" id="share-h">Made for sharing.</h2>
+<p class="lead" style="font-size: 18px; line-height: 26px">Build one each, or one massive one to fight over. Stack as many custom pizzas in your basket as the table can handle.</p>
+<button class="btn btn-gold btn-lg" type="button" data-act="start">Build another pizza</button>
+</div>
+</div>
+</section>
+
+<section class="panel-red on-red sec" id="checkout" aria-labelledby="co-h">
+<div class="px hide-m" style="left: 90%; top: 4%; width: 90px; height: 90px"><div class="px-in" data-speed="0.3" data-rot="0.5"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-slice"></use></svg></div></div>
+<div class="px hide-m" style="left: 2%; top: 40%; width: 54px; height: 54px"><div class="px-in" data-speed="-0.35" data-rot="-0.7"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-feta"></use></svg></div></div>
+<div class="wrap">
+<div class="sec-head">
+<p class="t-label c-white">Order review + checkout</p>
+<h2 class="t-headline c-gold" id="co-h">Nearly there.</h2>
+<p class="lead c-cream">A few details and the oven's yours.</p>
+</div>
+<div class="co-grid">
+<form class="cream-card co-form" id="co-form" novalidate>
+<div class="field">
+<span class="flabel" id="method-l">Delivery or collection</span>
+<div class="seg" role="group" aria-labelledby="method-l">
+<button type="button" id="m-delivery" aria-pressed="true" data-act="method" data-val="delivery">Delivery</button>
+<button type="button" id="m-collection" aria-pressed="false" data-act="method" data-val="collection">Collection</button>
+</div>
+<span class="t-caption" id="delivery-note">Delivery is £2.50, free on orders over £25.</span>
+</div>
+<div class="field">
+<label for="f-name">Full name</label>
+<input id="f-name" name="name" type="text" autocomplete="name" aria-invalid="false" aria-describedby="e-name">
+<p class="err" id="e-name" hidden></p>
+</div>
+<div class="row2">
+<div class="field">
+<label for="f-phone">Phone number</label>
+<input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-invalid="false" aria-describedby="e-phone">
+<p class="err" id="e-phone" hidden></p>
+</div>
+<div class="field">
+<label for="f-email">Email</label>
+<input id="f-email" name="email" type="email" autocomplete="email" aria-invalid="false" aria-describedby="e-email">
+<p class="err" id="e-email" hidden></p>
+</div>
+</div>
+<div class="row2" id="address-row">
+<div class="field">
+<label for="f-address">Delivery address</label>
+<input id="f-address" name="address" type="text" autocomplete="street-address" aria-invalid="false" aria-describedby="e-address">
+<p class="err" id="e-address" hidden></p>
+</div>
+<div class="field">
+<label for="f-postcode">Postcode</label>
+<input id="f-postcode" name="postcode" type="text" autocomplete="postal-code" aria-invalid="false" aria-describedby="e-postcode">
+<p class="err" id="e-postcode" hidden></p>
+</div>
+</div>
+<div class="field">
+<label for="f-time">When</label>
+<select id="f-time" name="time">
+<option value="asap">As soon as possible</option>
+</select>
+</div>
+<div class="field">
+<label for="f-promo">Promo code (optional)</label>
+<div class="promo"><input id="f-promo" name="promo" type="text" aria-describedby="e-promo"><button type="button" class="btn btn-line btn-sm" data-act="promo">Apply</button></div>
+<p class="err" id="e-promo" hidden>That code isn't valid.</p>
+<p class="ok" id="ok-promo" hidden></p>
+</div>
+<div class="pay">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="3"></rect><circle cx="12" cy="12" r="2.5"></circle></svg>
+<div><b id="pay-label">Pay on delivery</b><span class="demo-tag">Demo placeholder</span><p class="t-caption" style="margin-top: 4px">This is a front-end demo. No card details are collected.</p></div>
+</div>
+<button type="submit" class="btn btn-gold btn-lg" id="place-btn" disabled>Place order</button>
+<p class="t-caption" id="place-hint">Add a pizza to your basket to place an order.</p>
+</form>
+
+<aside class="butter-card summary" aria-labelledby="sum-h">
+<h3 class="t-title" id="sum-h">Order summary</h3>
+<p class="empty" id="sum-empty">Your basket is empty. Build a pizza and add it to your basket.</p>
+<ul class="sum-items" id="sum-items"></ul>
+<div class="tot"><span>Subtotal</span><span id="tot-sub">£0.00</span></div>
+<div class="tot"><span>Delivery</span><span id="tot-del">£0.00</span></div>
+<div class="tot" id="tot-disc-row" hidden><span id="tot-disc-label">Discount</span><span id="tot-disc"></span></div>
+<div class="tot big"><span>Total</span><span id="tot-total">£0.00</span></div>
+</aside>
+</div>
+</div>
+</section>
+</main>
+
+<footer class="butter-card ftr" id="contact">
+<div class="px hide-m" style="left: 86%; top: 8%; width: 90px; height: 90px"><div class="px-in" data-speed="0.3" data-rot="-0.5"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-pizza"></use></svg></div></div>
+<div class="ftr-mark" aria-hidden="true" data-brand>PIZZANOW</div>
+<div class="ftr-grid">
+<div class="nav-col t-nav"><h3 class="t-nav">Explore</h3><a href="#build">Build</a><a href="#how">How it works</a><a href="#favourites">Menu favourites</a><a href="#checkout">Checkout</a></div>
+<div><h3 class="t-nav">Find us</h3><p>[Street address]</p><p>[Town, postcode]</p></div>
+<div><h3 class="t-nav">Opening hours</h3><p>[Mon–Thu, hours]</p><p>[Fri–Sun, hours]</p></div>
+<div><h3 class="t-nav">Get in touch</h3><p><a href="tel:00000000000">[Phone number]</a></p>
+<div class="socials">
+<a href="#contact" aria-label="Instagram"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></a>
+<a href="#contact" aria-label="Facebook"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 3h-2a4 4 0 0 0-4 4v3H7v4h2v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h2z"></path></svg></a>
+<a href="#contact" aria-label="TikTok"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 3v11a4 4 0 1 1-4-4"></path><path d="M14 3a5 5 0 0 0 5 5"></path></svg></a>
+</div>
+</div>
+</div>
+<p class="allergen">Please tell us about any allergies before ordering.</p>
+<p class="t-caption" style="margin-top: 16px">© 2026 <span data-brand>PIZZANOW</span>. All rights reserved.</p>
+</footer>
+
+<div id="modal-root"></div>
+
+</div>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
