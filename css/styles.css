@@ -328,3 +328,9 @@ button{cursor:pointer}
 .wm-row span:empty{display:none}
 .overlay.bake-bg{background:var(--red)}
 main section{scroll-margin-top:80px}
+/* a full photo (not a cut-out) sits inside its card instead of rising above it */
+.cut-wrap:has(.photo){padding-top:0}
+.cut.photo{overflow:hidden}
+.share .cut.photo img,.cut.photo img{position:static;transform:none;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center 30%}
+/* a cut-out whose photo is cropped at the right edge: line that edge up with the card */
+.cut.cut-right img{left:auto;right:0;transform:none;object-position:right bottom}
