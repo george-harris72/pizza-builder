@@ -1109,17 +1109,4 @@
   prev = { base: state.base, toppings: state.toppings, basket: state.basket, pizzaName: state.pizzaName, soundOn: state.soundOn, badges: state.badges, modal: state.modal };
   setTimeout(onScroll, 60);
 
-  /* Pre-loader: fade it out once the page and its images have loaded, but
-     keep it up for at least a moment so it never just flashes. */
-  (function () {
-    var el = $("preloader"); if (!el) return;
-    var shownAt = Date.now(), MIN_MS = 700;
-    function hide() {
-      setTimeout(function () {
-        el.classList.add("done");
-        setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 600);
-      }, Math.max(0, MIN_MS - (Date.now() - shownAt)));
-    }
-    if (document.readyState === "complete") hide(); else window.addEventListener("load", hide);
-  })();
 })();

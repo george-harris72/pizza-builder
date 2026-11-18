@@ -11,13 +11,39 @@
 <meta name="description" content="Drag, drop and bake your perfect pizza in under a minute.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=6">
+<link rel="preload" as="image" href="assets/img/hero-pizza.webp" fetchpriority="high">
+<link id="font-css" href="https://fonts.googleapis.com/css2?family=Anton&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+/* Pre-loader: inline so it paints before the site's stylesheet arrives. */
+html.is-loading,html.is-loading body{overflow:hidden}
+body{margin:0;background:#f3e8cc}
+.preloader{position:fixed;inset:0;z-index:1000;background:#f3e8cc;color:#231f0b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:16px;text-align:center;transition:opacity .5s ease,visibility .5s}
+.preloader.done{opacity:0;visibility:hidden}
+.preloader-in{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%;opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s cubic-bezier(0.34,1.56,0.64,1)}
+.preloader.ready .preloader-in{opacity:1;transform:none}
+.preloader-pizza{width:min(260px,60vw);aspect-ratio:1}
+.preloader-pizza img{width:100%;height:100%;display:block;animation:pl-spin 8s linear infinite}
+.preloader-text{margin:0;font-family:Anton,"Bebas Neue",Impact,"Arial Narrow",sans-serif;font-size:clamp(32px,6vw,56px);line-height:.95;text-transform:uppercase;color:#d32618}
+.preloader-bar{width:min(360px,80vw);display:flex;flex-direction:column;gap:8px}
+.preloader-track{height:16px;border-radius:999px;background:#ffffff;border:1.5px solid #231f0b;overflow:hidden}
+.preloader-fill{height:100%;width:0;border-radius:999px;background:#d32618;transition:width .35s cubic-bezier(0.34,1.56,0.64,1)}
+.preloader-meta{display:flex;justify-content:space-between;font-family:Anton,"Bebas Neue",Impact,"Arial Narrow",sans-serif;font-size:15px;letter-spacing:.02em;text-transform:uppercase;color:#a8180d}
+@keyframes pl-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.preloader-pizza img{animation:none}.preloader,.preloader-in,.preloader-fill{transition:none}}
+</style>
+<script>document.documentElement.className+=' is-loading';</script>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Anton&amp;display=swap" rel="stylesheet"><link rel="stylesheet" href="css/styles.css?v=7"><style>.preloader{display:none}html.is-loading,html.is-loading body{overflow:visible}</style></noscript>
 </head>
 <body>
-<div class="preloader" id="preloader" role="status" aria-live="polite">
-<div class="preloader-pizza"><img src="assets/img/hero-pizza.webp" alt=""></div>
-<p class="preloader-text">Your Pizza Is Loading</p>
+<div class="preloader" id="preloader">
+<div class="preloader-in">
+<div class="preloader-pizza"><img src="assets/img/hero-pizza.webp" alt="" fetchpriority="high"></div>
+<p class="preloader-text" id="preloader-text">Your Pizza Is Loading</p>
+<div class="preloader-bar">
+<div class="preloader-track" role="progressbar" aria-labelledby="preloader-text" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="preloader-track"><div class="preloader-fill" id="preloader-fill"></div></div>
+<div class="preloader-meta" aria-hidden="true"><span id="preloader-step">Warming the oven</span><span id="preloader-pct">0%</span></div>
+</div>
+</div>
 </div>
 <div class="root" id="root">
 
@@ -106,7 +132,7 @@
 <h2 class="t-headline c-gold" id="how-h">Three steps to dinner.</h2>
 <p class="lead c-cream">No menus to squint at. You make it, we bake it.</p>
 </div>
-<div class="cut-wrap"><div class="px-in" data-speed="0.08"><figure class="cut bg-cream"><img src="assets/img/cutout-thumbs-up.webp" alt="A man in sunglasses biting a cheesy slice and giving a thumbs up"></figure></div></div>
+<div class="cut-wrap"><div class="px-in" data-speed="0.08"><figure class="cut bg-cream"><img data-src="assets/img/cutout-thumbs-up.webp" alt="A man in sunglasses biting a cheesy slice and giving a thumbs up"></figure></div></div>
 </div>
 <ol class="steps">
 <li class="cream-card step"><span class="step-n" aria-hidden="true">01</span><h3 class="t-title">Pick your base</h3><p>Choose a size, crust, sauce and cheese. Watch the dough change as you go.</p></li>
@@ -126,7 +152,7 @@
 <h2 class="t-headline c-red" id="build-h">Build it your way.</h2>
 <p class="lead">Pick a base, then get your hands dirty. Well, not literally.</p>
 </div>
-<div class="cut-wrap"><div class="px-in" data-speed="0.08"><figure class="cut bg-red"><img src="assets/img/cutout-beanie.webp" alt="A woman in a red beanie taking a big bite of pepperoni pizza"></figure></div></div>
+<div class="cut-wrap"><div class="px-in" data-speed="0.08"><figure class="cut bg-red"><img data-src="assets/img/cutout-beanie.webp" alt="A woman in a red beanie taking a big bite of pepperoni pizza"></figure></div></div>
 </div>
 <div class="builder show-tray" id="builder">
 
@@ -213,7 +239,7 @@
 <h2 class="t-headline c-gold" id="fav-h">Where tradition meets your taste.</h2>
 <p class="lead c-cream">Start from a classic. Load one into the builder, then make it yours.</p>
 </div>
-<div class="cut-wrap"><div class="px-in" data-speed="0.08"><figure class="cut cut-right bg-cream"><img src="assets/img/cutout-olive-jacket.webp" alt="A man with curly hair in an olive corduroy jacket laughing as he bites into a slice of pepperoni pizza"></figure></div></div>
+<div class="cut-wrap"><div class="px-in" data-speed="0.08"><figure class="cut cut-right bg-cream"><img data-src="assets/img/cutout-olive-jacket.webp" alt="A man with curly hair in an olive corduroy jacket laughing as he bites into a slice of pepperoni pizza"></figure></div></div>
 </div>
 <div class="favs" id="favs"></div>
 </div>
@@ -223,7 +249,7 @@
 <div class="px hide-m" style="left: 3%; top: 6%; width: 60px; height: 60px"><div class="px-in" data-speed="0.45" data-rot="0.8"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-pepperoni"></use></svg></div></div>
 <div class="px hide-m" style="left: 92%; top: 64%; width: 70px; height: 70px"><div class="px-in" data-speed="-0.3" data-rot="-0.6"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#sym-basil"></use></svg></div></div>
 <div class="wrap share">
-<div class="cut-wrap" style="position: relative"><div class="px-in" data-speed="0.06"><figure class="cut photo bg-white"><img src="assets/img/friends.webp" alt="Five friends laughing and sharing a box of pepperoni pizza"></figure></div>
+<div class="cut-wrap" style="position: relative"><div class="px-in" data-speed="0.06"><figure class="cut photo bg-white"><img data-src="assets/img/friends.webp" alt="Five friends laughing and sharing a box of pepperoni pizza"></figure></div>
 <div class="share-tag"><div class="px-in" data-speed="-0.2"><span class="tag" style="background: #ffca28; color: #a8180d; font-size: 18px; min-height: 44px; transform: rotate(6deg)" id="free-del-tag">Free delivery over £25</span></div></div>
 </div>
 <div class="share-copy">
@@ -339,7 +365,6 @@
 <div id="modal-root"></div>
 
 </div>
-<script src="js/config.js"></script>
-<script src="js/app.js?v=6"></script>
+<script src="js/preloader.js?v=7" data-version="7"></script>
 </body>
 </html>
